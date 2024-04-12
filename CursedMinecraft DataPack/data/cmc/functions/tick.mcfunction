@@ -1,3 +1,6 @@
+# Player Main (e.g. store player data)
+execute as @a run function cmc:player/main
+
 # Triggers
 execute as @a[scores={cmc.triggers.Join=1..}] run function cmc:triggers/join
 

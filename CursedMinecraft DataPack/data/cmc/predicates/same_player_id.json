@@ -1,0 +1,24 @@
+{
+  "condition": "minecraft:entity_scores",
+  "entity": "this",
+  "scores": {
+    "cmc.PlayerID": {
+      "min": {
+        "type": "minecraft:score",
+        "target": {
+          "type": "minecraft:fixed",
+          "name": "#cmc.Search"
+        },
+        "score": "cmc.PlayerID"
+      },
+      "max": {
+        "type": "minecraft:score",
+        "target": {
+          "type": "minecraft:fixed",
+          "name": "#cmc.Search"
+        },
+        "score": "cmc.PlayerID"
+      }
+    }
+  }
+}
