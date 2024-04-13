@@ -1,5 +1,15 @@
 $data modify storage cmc:fake_join CurrentPlayer set from storage cmc:fake_join Players[{PlayerID:$(PlayerID)}]
 
+$data remove storage cmc:fake_join Players[{PlayerID:$(PlayerID)}]
+data modify storage cmc:fake_join Players append value {}
+data modify storage cmc:fake_join Players[-1].PlayerID set from storage cmc:fake_join CurrentPlayer.PlayerID
+data modify storage cmc:fake_join Players[-1].ForceloadID set from storage cmc:fake_join CurrentPlayer.ForceloadID
+data modify storage cmc:fake_join Players[-1].Name set from storage cmc:fake_join CurrentPlayer.Name
+execute store result storage cmc:fake_join Players[-1].Pos0 int 1 run data get storage cmc:fake_join CurrentPlayer.Pos0
+execute store result storage cmc:fake_join Players[-1].Pos1 int 1 run data get storage cmc:fake_join CurrentPlayer.Pos1
+execute store result storage cmc:fake_join Players[-1].Pos2 int 1 run data get storage cmc:fake_join CurrentPlayer.Pos2
+data modify storage cmc:fake_join Players[-1].Dimension set from storage cmc:fake_join CurrentPlayer.Dimension
+
 # Join Message
 tellraw @a {"translate":"multiplayer.player.joined","with":[{"nbt":"CurrentPlayer.Name","storage":"cmc:fake_join"}],"color":"yellow"}
 
