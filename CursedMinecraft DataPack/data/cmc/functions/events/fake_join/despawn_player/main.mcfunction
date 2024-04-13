@@ -6,7 +6,7 @@ $data remove storage cmc:fake_join Players[{PlayerID:$(PlayerID)}]
 execute store result score #cmc.Search cmc.PlayerID run data get storage cmc:fake_join CurrentPlayer.PlayerID
 
 # Leave Message
-execute unless score #cmc.FakeJoin.DespawnAll cmc.Dummy matches 1 run tellraw @a {"translate":"multiplayer.player.left","with":[{"nbt":"CurrentPlayer.Name","storage":"cmc:fake_join"}],"color":"yellow"}
+execute unless score #cmc.FakeJoin.DespawnAll cmc.Dummy matches 1 run tellraw @a[predicate=!cmc:same_player_id] {"translate":"multiplayer.player.left","with":[{"nbt":"CurrentPlayer.Name","storage":"cmc:fake_join"}],"color":"yellow"}
 
 # Remove statue
 kill @e[tag=cmc.PlayerStatue,predicate=cmc:same_player_id,limit=40]
