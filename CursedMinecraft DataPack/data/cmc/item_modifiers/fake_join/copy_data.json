@@ -1,0 +1,14 @@
+{
+  "function": "minecraft:copy_custom_data",
+  "source": {
+    "type": "minecraft:storage",
+    "source": "cmc:fake_join"
+  },
+  "ops": [
+    {
+      "source": "Players[-1]",
+      "target": "FakeJoinData",
+      "op": "merge"
+    }
+  ]
+}

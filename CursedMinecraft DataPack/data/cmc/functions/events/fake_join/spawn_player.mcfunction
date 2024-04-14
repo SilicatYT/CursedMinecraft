@@ -1,3 +1,5 @@
+scoreboard players add #cmc.FakeJoin.Amount cmc.Dummy 1
+
 $data modify storage cmc:fake_join CurrentPlayer set from storage cmc:fake_join Players[{PlayerID:$(PlayerID)}]
 
 $data remove storage cmc:fake_join Players[{PlayerID:$(PlayerID)}]
@@ -29,6 +31,8 @@ data remove storage cmc:temporary Rotation
 data modify entity @e[type=minecraft:block_display,tag=cmc.Temp,tag=cmc.PlayerStatue.Name,limit=1] CustomName set from storage cmc:fake_join CurrentPlayer.Name
 
 # Equipment
+item modify entity @e[type=minecraft:item_display,tag=cmc.Temp,tag=cmc.PlayerStatue,limit=1] contents cmc:fake_join/copy_data
+
 execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:103b}] run data modify entity @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorHead,limit=1] ArmorItems[3] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:103b}]
 execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:102b}] run data modify entity @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorBody,limit=1] ArmorItems[2] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:102b}]
 execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:101b}] run data modify entity @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorBody,limit=1] ArmorItems[1] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:101b}]
