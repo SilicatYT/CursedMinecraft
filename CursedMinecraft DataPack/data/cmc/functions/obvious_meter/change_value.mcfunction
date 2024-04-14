@@ -7,3 +7,8 @@ execute if score #cmc.ObviousMeter.NewValue cmc.Dummy matches 11.. run return ru
 scoreboard players operation #cmc.ObviousMeter cmc.Dummy = #cmc.ObviousMeter.NewValue cmc.Dummy
 tellraw @s "Successfully changed the 'Obvious Meter' value."
 playsound minecraft:entity.experience_orb.pickup master @s
+
+# Change event timers
+execute store result score #cmc.GameTime cmc.Dummy run time query gametime
+
+function cmc:obvious_meter/set_timers/fake_join

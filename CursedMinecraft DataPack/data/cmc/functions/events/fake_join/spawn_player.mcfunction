@@ -42,9 +42,24 @@ execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{
 execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.SelectedItem run data modify entity @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorBody,limit=1] HandItems[0] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.SelectedItem
 execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:-106b}] run data modify entity @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorBody,limit=1] HandItems[1] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:-106b}]
 
-#Rotation
+# Rotation
 $execute as @e[tag=cmc.Temp,tag=cmc.PlayerStatue.Head,limit=2] at @s run tp @s ~ ~ ~ ~$(Rotation0) ~$(Rotation1Inverted)
 execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:103b}] run data modify entity @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorHead,limit=1] Pose.Head[0] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Rotation[1]
+
+# Despawn Timer (Min: <ObviousMeter - 2> * 2 minutes, Max: <ObviousMeter - 2> * 10 minutes)
+execute store result score #cmc.GameTime cmc.Dummy run time query gametime
+execute if score #cmc.ObviousMeter cmc.Dummy matches ..3 store result score #cmc.Timer cmc.Dummy run random value 2400..12000
+execute if score #cmc.ObviousMeter cmc.Dummy matches 4 store result score #cmc.Timer cmc.Dummy run random value 4800..24000
+execute if score #cmc.ObviousMeter cmc.Dummy matches 5 store result score #cmc.Timer cmc.Dummy run random value 7200..36000
+execute if score #cmc.ObviousMeter cmc.Dummy matches 6 store result score #cmc.Timer cmc.Dummy run random value 9600..48000
+execute if score #cmc.ObviousMeter cmc.Dummy matches 7 store result score #cmc.Timer cmc.Dummy run random value 12000..60000
+execute if score #cmc.ObviousMeter cmc.Dummy matches 8 store result score #cmc.Timer cmc.Dummy run random value 14400..72000
+execute if score #cmc.ObviousMeter cmc.Dummy matches 9 store result score #cmc.Timer cmc.Dummy run random value 16800..84000
+execute if score #cmc.ObviousMeter cmc.Dummy matches 10 store result score #cmc.Timer cmc.Dummy run random value 19200..96000
+execute store result score @e[type=minecraft:item_display,tag=cmc.Temp,tag=cmc.PlayerStatue.Head,limit=1] cmc.Timer run scoreboard players operation #cmc.Timer cmc.Dummy += #cmc.GameTime cmc.Dummy
+
+# Queue next player spawn
+function cmc:obvious_meter/set_timers/fake_join
 
 # End
 scoreboard players operation @e[tag=cmc.Temp,tag=cmc.PlayerStatue,limit=40] cmc.PlayerID = #cmc.Search cmc.PlayerID
