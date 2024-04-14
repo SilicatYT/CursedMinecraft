@@ -3,7 +3,7 @@ advancement revoke @s only cmc:start_sleeping
 tag @s add cmc.IsSleeping
 
 # Cancel the sleep if a fake player is online (Still allow sleep depending on the gamerule)
-execute if score #cmc.FakeJoin.Amount cmc.Dummy matches 0 run return 0
+execute unless score #cmc.FakeJoin.Amount cmc.Dummy matches 1.. run return 0
 
 scoreboard players operation #cmc.PlayersSleepingRequired cmc.Dummy = #cmc.PlayerCount cmc.Dummy
 scoreboard players operation #cmc.PlayersSleepingRequired cmc.Dummy += #cmc.FakeJoin.Amount cmc.Dummy

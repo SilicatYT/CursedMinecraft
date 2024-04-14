@@ -2,7 +2,7 @@
 tag @s remove cmc.IsSleeping
 
 # Display fake sleep message
-execute if score #cmc.FakeJoin.Amount cmc.Dummy matches 0 run return 0
+execute unless score #cmc.FakeJoin.Amount cmc.Dummy matches 1.. run return 0
 
 scoreboard players operation #cmc.PlayersSleepingRequired cmc.Dummy = #cmc.PlayerCount cmc.Dummy
 scoreboard players operation #cmc.PlayersSleepingRequired cmc.Dummy += #cmc.FakeJoin.Amount cmc.Dummy
