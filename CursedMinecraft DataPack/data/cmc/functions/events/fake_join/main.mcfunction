@@ -1,12 +1,23 @@
-# Elect random offline player
+# Elect random offline player (Stop if no available player exists)
 execute if data storage cmc:player_list {Offline:[]} run return 0
-execute store result score #cmc.ListSize cmc.Dummy if data storage cmc:player_list Offline[]
+
+execute store result score #cmc.ListSize cmc.Dummy if data storage cmc:fake_join Players[]
+execute store result score #cmc.ListSize2 cmc.Dummy if data storage cmc:player_list Offline[]
+execute if score #cmc.ListSize cmc.Dummy = #cmc.ListSize2 cmc.Dummy run return run scoreboard players reset #cmc.ListSize2
+
+# Elect random offline player (Create list of available players)
+data modify storage cmc:temporary Players.Available set from storage cmc:player_list Offline
+data modify storage cmc:temporary Players.Used set from storage cmc:fake_join Players
+execute if score #cmc.ListSize cmc.Dummy matches 1.. run function cmc:events/fake_join/get_available_players with storage cmc:temporary Players.Used[-1]
+
+execute store result score #cmc.ListSize cmc.Dummy if data storage cmc:temporary Players.Available[]
 execute store result score #cmc.RNG cmc.Dummy run random value 0..2147483646
 execute store result storage cmc:temporary Index int 1 run scoreboard players operation #cmc.RNG cmc.Dummy %= #cmc.ListSize cmc.Dummy
 
 # Get player's data from storage
 function cmc:events/fake_join/get_player with storage cmc:temporary
 data remove storage cmc:temporary Index
+data remove storage cmc:temporary Players
 
 # Fake Join
 data modify storage cmc:fake_join Players[-1].Dimension set from storage cmc:fake_join Players[-1].data.CurrentTick.Dimension
