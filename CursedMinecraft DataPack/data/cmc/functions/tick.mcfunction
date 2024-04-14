@@ -1,3 +1,6 @@
+# First Join (Can't be an advancement because it would run after this tick function, so it would run without a PlayerID set)
+execute as @a unless score @s cmc.PlayerID matches 1.. run function cmc:triggers/first_join
+
 # Player Main (e.g. store player data)
 execute as @a run function cmc:player/main
 
