@@ -13,5 +13,6 @@ execute unless score #cmc.PlayerCount cmc.Dummy = #cmc.PlayerCount.PreviousTick 
 execute if score #cmc.FakeJoin.Amount cmc.Dummy matches 1.. at @a as @e[type=minecraft:item_display,tag=cmc.PlayerStatue,distance=..8,limit=1] run function cmc:events/fake_join/despawn_player/main with entity @s item.components."minecraft:custom_data".FakeJoinData
 
 # Fake sleep message if fake players are online
-execute if score #cmc.DisplaySleepMessage cmc.Dummy matches 1 run title @a actionbar {"translate":"sleep.players_sleeping","with":[{"score":{"name":"#cmc.PlayersSleeping","objective":"cmc.Dummy"}},{"score":{"name":"#cmc.CountRequired","objective":"cmc.Dummy"}}]}
+execute if score #cmc.DisplaySleepMessage cmc.Dummy matches 1 unless score #cmc.PlayersSleeping cmc.Dummy matches 0 if score #cmc.PlayersSleeping cmc.Dummy >= #cmc.PlayersSleepingRequired cmc.Dummy run title @a actionbar {"translate":"sleep.skipping_night"}
+execute if score #cmc.DisplaySleepMessage cmc.Dummy matches 1 unless score #cmc.PlayersSleepingPercentage cmc.Dummy matches 101.. unless score #cmc.PlayersSleeping cmc.Dummy >= #cmc.PlayersSleepingRequired cmc.Dummy run title @a actionbar {"translate":"sleep.players_sleeping","with":[{"score":{"name":"#cmc.PlayersSleeping","objective":"cmc.Dummy"}},{"score":{"name":"#cmc.PlayersSleepingRequired","objective":"cmc.Dummy"}}]}
 execute if score #cmc.DisplaySleepMessage cmc.Dummy matches 1 run scoreboard players reset #cmc.DisplaySleepMessage
