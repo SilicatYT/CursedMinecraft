@@ -7,6 +7,7 @@ setblock 29999983 -64 29999983 minecraft:yellow_shulker_box
 
 # Constants
 scoreboard players set #cmc.16 cmc.Dummy 16
+scoreboard players set #cmc.100 cmc.Dummy 100
 
 # Scoreboards
 scoreboard players set #cmc.ForceloadID cmc.Dummy 2147483647

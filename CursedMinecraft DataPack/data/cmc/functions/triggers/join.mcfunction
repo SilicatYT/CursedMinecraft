@@ -1,4 +1,8 @@
+# Reset scores & tags
 scoreboard players reset @s cmc.triggers.Join
+tag @s remove cmc.IsSleeping
+
+# Update Player Count
 scoreboard players add #cmc.PlayerCount cmc.Dummy 1
 scoreboard players add #cmc.PlayerCount.PreviousTick cmc.Dummy 1
 

@@ -61,6 +61,10 @@ execute store result score @e[type=minecraft:item_display,tag=cmc.Temp,tag=cmc.P
 # Queue next player spawn
 function cmc:obvious_meter/set_timers/fake_join
 
+# Disable Sleep
+execute if score #cmc.FakeJoin.Amount cmc.Dummy matches 1 store result score #cmc.PlayersSleepingPercentage cmc.Dummy run gamerule playersSleepingPercentage
+gamerule playersSleepingPercentage 101
+
 # End
 scoreboard players operation @e[tag=cmc.Temp,tag=cmc.PlayerStatue,limit=40] cmc.PlayerID = #cmc.Search cmc.PlayerID
 tag @e[tag=cmc.Temp,tag=cmc.PlayerStatue,limit=40] remove cmc.Temp

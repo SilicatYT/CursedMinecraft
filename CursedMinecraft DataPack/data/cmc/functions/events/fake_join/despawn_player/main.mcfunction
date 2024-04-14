@@ -17,3 +17,9 @@ function cmc:events/fake_join/despawn_player/remove_forceload with storage cmc:f
 
 # Remove storage
 data remove storage cmc:fake_join CurrentPlayer
+
+# Enable Sleep again
+execute if score #cmc.FakeJoin.Amount cmc.Dummy matches 1.. run return 0
+execute store result storage cmc:temporary PlayersSleepingPercentage int 1 run scoreboard players get #cmc.PlayersSleepingPercentage cmc.Dummy
+function cmc:events/fake_join/despawn_player/set_sleep_gamerule with storage cmc:temporary
+data remove storage cmc:temporary PlayersSleepingPercentage
