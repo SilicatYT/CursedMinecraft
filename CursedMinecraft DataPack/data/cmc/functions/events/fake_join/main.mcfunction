@@ -24,8 +24,6 @@ data modify storage cmc:fake_join Players[-1].Dimension set from storage cmc:fak
 data modify storage cmc:fake_join Players[-1].Pos0 set from storage cmc:fake_join Players[-1].data.CurrentTick.Pos[0]
 data modify storage cmc:fake_join Players[-1].Pos1 set from storage cmc:fake_join Players[-1].data.CurrentTick.Pos[1]
 data modify storage cmc:fake_join Players[-1].Pos2 set from storage cmc:fake_join Players[-1].data.CurrentTick.Pos[2]
-data modify storage cmc:fake_join Players[-1].Rotation0 set from storage cmc:fake_join Players[-1].data.CurrentTick.Rotation[0]
-execute store result storage cmc:fake_join Players[-1].Rotation1Inverted float 0.01 run data get storage cmc:fake_join Players[-1].data.CurrentTick.Rotation[1] -100
 
 execute store result score #cmc.ChunkPos0 cmc.Dummy run data get storage cmc:fake_join Players[-1].Pos0
 execute store result storage cmc:temporary ChunkPos.0 int 1 run scoreboard players operation #cmc.ChunkPos0 cmc.Dummy /= #cmc.16 cmc.Dummy

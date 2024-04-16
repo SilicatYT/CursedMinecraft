@@ -9,8 +9,9 @@ execute store result score #cmc.Search cmc.PlayerID run data get storage cmc:fak
 # Leave Message
 execute unless score #cmc.FakeJoin.DespawnAll cmc.Dummy matches 1 run tellraw @a[predicate=!cmc:same_player_id] {"translate":"multiplayer.player.left","with":[{"nbt":"CurrentPlayer.Name","storage":"cmc:fake_join"}],"color":"yellow"}
 
-# Remove statue
-kill @e[tag=cmc.PlayerStatue,predicate=cmc:same_player_id,limit=40]
+# Remove 
+execute as @e[tag=cmc.PlayerStatue.Root,predicate=cmc:same_player_id,limit=1] on passengers run kill @s
+kill @e[tag=cmc.PlayerStatue,predicate=cmc:same_player_id,limit=5]
 
 # Remove forceload
 function cmc:events/fake_join/despawn_player/remove_forceload with storage cmc:fake_join CurrentPlayer
