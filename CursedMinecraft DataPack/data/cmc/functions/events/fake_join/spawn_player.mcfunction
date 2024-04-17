@@ -15,22 +15,28 @@ data modify storage cmc:fake_join Players[-1].Dimension set from storage cmc:fak
 # Join Message
 tellraw @a {"translate":"multiplayer.player.joined","with":[{"nbt":"CurrentPlayer.Name","storage":"cmc:fake_join"}],"color":"yellow"}
 
+# Select Skin
+execute store result score #cmc.ListSize cmc.Dummy if data storage cmc:fake_join Skins[]
+execute store result score #cmc.RNG cmc.Dummy run random value 0..2147483646
+execute store result storage cmc:temporary Index int 1 run scoreboard players operation #cmc.RNG cmc.Dummy %= #cmc.ListSize cmc.Dummy
+function cmc:events/fake_join/spawn_player/select_skin with storage cmc:temporary
+data remove storage cmc:temporary Index
+
 # Player Model
 execute store result score #cmc.Search cmc.PlayerID run data get storage cmc:fake_join CurrentPlayer.PlayerID
 
 execute store result score #cmc.Rotation cmc.Dummy run data get storage cmc:fake_join CurrentPlayer.data.CurrentTick.Rotation[0] 100
 execute store result score #cmc.Rotation2 cmc.Dummy run random value -4500..4500
-data modify storage cmc:temporary Rotation.Rotation0 set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Rotation[0]
-data modify storage cmc:temporary Rotation.Rotation1 set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Rotation[1]
-execute store result storage cmc:temporary Rotation.BodyRotation float 0.01 run scoreboard players operation #cmc.Rotation cmc.Dummy += #cmc.Rotation2 cmc.Dummy
-execute store result storage cmc:temporary Rotation.BodyRotationFlipped float 0.01 run scoreboard players add #cmc.Rotation cmc.Dummy 18000
-$execute in $(Dimension) positioned $(Pos0) $(Pos1) $(Pos2) run function cmc:events/fake_join/spawn_player/create_model with storage cmc:temporary Rotation
-data remove storage cmc:temporary Rotation
+data modify storage cmc:temporary Statue.Rotation0 set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Rotation[0]
+data modify storage cmc:temporary Statue.Rotation1 set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Rotation[1]
+execute store result storage cmc:temporary Statue.BodyRotation float 0.01 run scoreboard players operation #cmc.Rotation cmc.Dummy += #cmc.Rotation2 cmc.Dummy
+$execute in $(Dimension) positioned $(Pos0) $(Pos1) $(Pos2) run function cmc:events/fake_join/spawn_player/create_model with storage cmc:temporary Statue
+data remove storage cmc:temporary Statue
 
 # Name
 data modify entity @e[type=minecraft:block_display,tag=cmc.Temp,tag=cmc.PlayerStatue.Name,limit=1] CustomName set from storage cmc:fake_join CurrentPlayer.Name
 
-# Equipment
+# Equipment (Need to optimise it by only running @e or /data if the data is present)
 item modify entity @e[type=minecraft:item_display,tag=cmc.Temp,tag=cmc.PlayerStatue.Head,limit=1] contents cmc:fake_join/copy_data
 
 data modify storage cmc:temporary Equipment set value {ArmorItems:[{},{},{},{}],HandItems:[{},{}]}
@@ -43,9 +49,13 @@ data remove storage cmc:temporary Equipment.ArmorItems[].Slot
 data modify storage cmc:temporary Equipment.HandItems[0] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.SelectedItem
 data modify storage cmc:temporary Equipment.HandItems[1] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:-106b}]
 
-execute if data storage cmc:temporary Equipment.ArmorItems as @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorBody,limit=1] run data modify entity @s ArmorItems set from storage cmc:temporary Equipment.ArmorItems
+execute as @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorBody,limit=1] run data modify entity @s ArmorItems set from storage cmc:temporary Equipment.ArmorItems
 execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:103b}] as @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorHead,limit=1] run data modify entity @s ArmorItems[3] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:103b}]
-execute if data storage cmc:temporary Equipment.HandItems as @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorBody,limit=1] run data modify entity @s HandItems set from storage cmc:temporary Equipment.HandItems
+execute as @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorBody,limit=1] run data modify entity @s HandItems set from storage cmc:temporary Equipment.HandItems
+
+execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.SelectedItem as @e[type=minecraft:item_display,tag=cmc.Temp,tag=cmc.PlayerStatue.Root,limit=1] on passengers if entity @s[tag=cmc.PlayerStatue.ArmRight] run function cmc:events/fake_join/pose/holding_item_mainhand
+execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:-106b}] as @e[type=minecraft:item_display,tag=cmc.Temp,tag=cmc.PlayerStatue.Root,limit=1] on passengers if entity @s[tag=cmc.PlayerStatue.ArmLeft] run function cmc:events/fake_join/pose/holding_item_offhand
+
 data remove storage cmc:temporary Equipment
 
 # Rotation
