@@ -58,9 +58,6 @@ execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{
 
 data remove storage cmc:temporary Equipment
 
-# Rotation
-execute if data storage cmc:fake_join CurrentPlayer.data.CurrentTick.Inventory[{Slot:103b}] run data modify entity @e[type=minecraft:armor_stand,tag=cmc.Temp,tag=cmc.PlayerStatue.ArmorHead,limit=1] Pose.Head[0] set from storage cmc:fake_join CurrentPlayer.data.CurrentTick.Rotation[1]
-
 # Despawn Timer (Min: <ObviousMeter - 2> * 2 minutes, Max: <ObviousMeter - 2> * 10 minutes)
 execute store result score #cmc.GameTime cmc.Dummy run time query gametime
 execute if score #cmc.ObviousMeter cmc.Dummy matches ..3 store result score #cmc.Timer cmc.Dummy run random value 2400..12000

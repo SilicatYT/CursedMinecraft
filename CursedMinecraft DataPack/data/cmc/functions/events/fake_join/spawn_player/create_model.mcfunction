@@ -3,7 +3,7 @@ $summon minecraft:item_display ~ ~1.3625 ~ {shadow_radius:0.5f,shadow_strength:1
 
 # Armor
 $summon minecraft:armor_stand ~ ~ ~ {Tags:["cmc.Temp","cmc.PlayerStatue","cmc.PlayerStatue.ArmorBody","cmc.PlayerStatue.Body"],Rotation:[$(BodyRotation)f,0f],Marker:1b,Attributes:[{Base:0.9375d,Name:"minecraft:generic.scale"}],Silent:1b,Invulnerable:1b,Invisible:1b,Pose:{Body:[0f,0f,0f],LeftArm:[0f,0f,0f],RightArm:[0f,0f,0f],LeftLeg:[0f,0f,0f],RightLeg:[0f,0f,0f],Head:[0f,0f,0f]},DisabledSlots:4144959}
-$summon minecraft:armor_stand ~ ~0.06 ~ {Tags:["cmc.Temp","cmc.PlayerStatue","cmc.PlayerStatue.ArmorHead","cmc.PlayerStatue.Head"],Rotation:[$(Rotation0)f,0f],Marker:1b,Attributes:[{Base:0.9375d,Name:"minecraft:generic.scale"}],Silent:1b,Invulnerable:1b,Invisible:1b,Pose:{Body:[0f,0f,0f],LeftArm:[0f,0f,0f],RightArm:[0f,0f,0f],LeftLeg:[0f,0f,0f],RightLeg:[0f,0f,0f],Head:[0.01f,0f,0f]},DisabledSlots:4144959}
+$summon minecraft:armor_stand ~ ~0.06 ~ {Tags:["cmc.Temp","cmc.PlayerStatue","cmc.PlayerStatue.ArmorHead","cmc.PlayerStatue.Head"],Rotation:[$(Rotation0)f,0f],Marker:1b,Attributes:[{Base:0.9375d,Name:"minecraft:generic.scale"}],Silent:1b,Invulnerable:1b,Invisible:1b,Pose:{Body:[0f,0f,0f],LeftArm:[0f,0f,0f],RightArm:[0f,0f,0f],LeftLeg:[0f,0f,0f],RightLeg:[0f,0f,0f],Head:[$(Rotation1)f,0f,0f]},DisabledSlots:4144959}
 
 # Name
 summon minecraft:block_display ~ ~1.8 ~ {Tags:["cmc.Temp","cmc.PlayerStatue","cmc.PlayerStatue.Name"],block_state:{Name:"minecraft:cave_air"},CustomName:'""',CustomNameVisible:1b}
